@@ -19,6 +19,17 @@ import {checkLikeController} from "./controllers/quizzesControllers/checkLikeCon
 
 const app = express();
 
+// Логирование всех входящих запросов
+app.use((req, res, next) => {
+    console.log('\n=== Входящий запрос ===');
+    console.log('Время:', new Date().toISOString());
+    console.log('Метод:', req.method);
+    console.log('URL:', req.url);
+    console.log('Origin:', req.headers.origin);
+    console.log('Cookies:', req.headers.cookie ? 'Есть' : 'Нет');
+    next();
+});
+
 app.use(cors({
     origin: process.env.ORIGIN,
     credentials: true
@@ -26,6 +37,12 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Логирование после парсинга cookies
+app.use((req, res, next) => {
+    console.log('Распарсенные cookies:', req.cookies);
+    next();
+});
 
 //POST
 app.post("/auth/signin", signInController);
