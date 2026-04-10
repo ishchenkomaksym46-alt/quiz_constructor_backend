@@ -29,8 +29,8 @@ export const loginController = async (req, res) => {
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: false,  // false для localhost
-            sameSite: 'lax',  // lax вместо none для localhost
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 3600000
         });
 
