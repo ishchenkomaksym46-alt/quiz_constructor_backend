@@ -16,6 +16,9 @@ import {getUserEmailController} from "./controllers/authControllers/getUserEmail
 import {searchQuizController} from "./controllers/quizzesControllers/searchQuizController.js";
 import {likeQuizController} from "./controllers/quizzesControllers/likeQuizController.js";
 import {checkLikeController} from "./controllers/quizzesControllers/checkLikeController.js";
+import {leaderboardController} from "./controllers/quizzesControllers/leaderboardController.js";
+import {editQuizController} from "./controllers/quizzesControllers/editQuizController.js";
+import {getQuizController} from "./controllers/quizzesControllers/getQuizController.js";
 import 'dotenv/config';
 
 const app = express();
@@ -53,6 +56,8 @@ app.post('/quizzes/create', authMiddleware, createQuizController);
 //GET
 app.get('/quizzes', quizzesController);
 app.get('/quizzes/start', authMiddleware, startQuizController);
+app.get('/quizzes/leaderboard', leaderboardController);
+app.get('/quizzes/get', authMiddleware, getQuizController);
 app.get('/checkAuth', authMiddleware, accountInfoController);
 app.get('/getQuizzes', authMiddleware, getQuizzesController);
 app.get('/checkAuth', authMiddleware, (req, res) => {
@@ -62,6 +67,9 @@ app.get('/user', authMiddleware, getUserEmailController);
 app.get('/searchQuiz', searchQuizController);
 app.get('/quizzes/like', authMiddleware, likeQuizController);
 app.get('/quizzes/checkLike', authMiddleware, checkLikeController);
+
+//PUT
+app.put('/quizzes/edit', authMiddleware, isOwnerMiddleware, editQuizController);
 
 //DELETE
 app.delete('/deleteQuiz', authMiddleware, isOwnerMiddleware, deleteQuizController);
