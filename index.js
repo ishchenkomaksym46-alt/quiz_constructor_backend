@@ -16,6 +16,7 @@ import {getUserEmailController} from "./controllers/authControllers/getUserEmail
 import {searchQuizController} from "./controllers/quizzesControllers/searchQuizController.js";
 import {likeQuizController} from "./controllers/quizzesControllers/likeQuizController.js";
 import {checkLikeController} from "./controllers/quizzesControllers/checkLikeController.js";
+import 'dotenv/config';
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
+    origin: "https://quiz-master-pi-three.vercel.app",
     credentials: true
 }));
 app.use(express.json());
