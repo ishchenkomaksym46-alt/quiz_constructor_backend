@@ -31,7 +31,6 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-    origin: process.env.ORIGIN,
     credentials: true
 }));
 app.use(express.json());
